@@ -1,0 +1,20 @@
+{
+  "name": "go-build-webpack-plugin",
+  "version": "1.0.0",
+  "main": "index.js",
+  "description": "",
+  "scripts": {
+    "build": "",
+    "publish": "",
+    "test": "",
+    "lint": ""
+  },
+  "repository": "https://github.com/raviSussol/go-build-webpack-plugin.git",
+  "author": "Ravi Shrestha <ravi.shrestha@sussol.net>",
+  "license": "MIT",
+  "keywords": [
+    "Golang",
+    "webpack",
+    "Javascript"
+  ]
+}
