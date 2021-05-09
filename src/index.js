@@ -15,8 +15,8 @@ class GoBuildWebpackPlugin {
     });
     this.inject = options.inject;
     this.build = options.build;
-    this.files = [];
   }
+  static files = [];
 
   static getFilesRecursively(dir) {
     readdirSync(dir).forEach(file => {
@@ -47,7 +47,7 @@ class GoBuildWebpackPlugin {
           }
           const goFileRegex = /(?:_test)\.go/g;
           GoBuildWebpackPlugin.getFilesRecursively(b.resourcePath);
-          this.files.filter(f => !f.match(goFileRegex)).forEach(srcFile => {
+          GoBuildWebpackPlugin.files.filter(f => !f.match(goFileRegex)).forEach(srcFile => {
             const destFile = srcFile.replace(`${b.resourcePath}/`, '');
             const fileNameInCamelCase = GoBuildWebpackPlugin.toCamelCase(`lib ${basename(destFile)}`);
             const destLibFile = destFile.replace(basename(destFile), fileNameInCamelCase)
