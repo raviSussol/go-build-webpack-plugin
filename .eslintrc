@@ -1,0 +1,30 @@
+{
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 2021
+  },
+  "extends": [
+    "eslint:recommended",
+    "prettier"
+  ],
+  "globals": {
+    "describe": true,
+    "expect": true,
+    "__dirname": true,
+    "console": true,
+    "process": true
+  },
+  "rules": {
+    "no-var": "error",
+    "object-shorthand": "off",
+    "semi": ["error", "always"],
+    "quotes": ["error", "single"],
+    "comma-dangle": "off",
+    "object-curly-spacing": ["error", "always"],
+    "array-bracket-spacing": ["error", "always"],
+    "no-unused-vars": "error",
+    "no-undef": "error",
+    "no-console": "error"
+  }
+}
