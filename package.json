@@ -7,7 +7,7 @@
     "build": "",
     "publish": "",
     "test": "",
-    "lint": ""
+    "lint": "eslint --cache --format=pretty . --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern build --ext .js"
   },
   "repository": "https://github.com/raviSussol/go-build-webpack-plugin.git",
   "author": "Ravi Shrestha <ravi.shrestha@sussol.net>",
@@ -16,5 +16,15 @@
     "Golang",
     "webpack",
     "Javascript"
-  ]
+  ],
+  "devDependencies": {
+    "@babel/core": "^7.14.0",
+    "@babel/node": "^7.13.13",
+    "@babel/preset-env": "^7.14.1",
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-formatter-pretty": "^4.0.0",
+    "prettier": "^2.2.1"
+  }
 }
