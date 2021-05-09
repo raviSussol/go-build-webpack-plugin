@@ -11,7 +11,7 @@
     "prebuild": "yarn clean",
     "build": "babel src --out-dir lib --copy-files --presets=@babel/env",
     "dev": "watch 'yarn build' src",
-    "test": "jest",
+    "test": "echo test",
     "prepublish": "yarn build",
     "release": "np",
     "lint": "eslint --cache --format=pretty . --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern lib --ext .js"
