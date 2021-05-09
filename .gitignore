@@ -1,0 +1,16 @@
+# dependencies
+node_modules/
+
+# file history
+.history/
+
+# misc
+*.DS_Store
+
+# production
+build/
+
+# error log
+npm-error.log
+yarn-error.log
+.eslintcache
