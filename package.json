@@ -1,10 +1,15 @@
 {
   "name": "go-build-webpack-plugin",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "lib/index.js",
   "description": "",
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
-    "build": "",
+    "clean": "del-cli lib",
+    "prebuild": "yarn clean",
+    "build": "babel src --out-dir lib --copy-files --presets=@babel/env",
     "publish": "",
     "test": "",
     "lint": "eslint --cache --format=pretty . --ignore-path .gitignore --ignore-pattern node_modules --ignore-pattern build --ext .js"
@@ -18,13 +23,19 @@
     "Javascript"
   ],
   "devDependencies": {
+    "@babel/cli": "^7.13.16",
     "@babel/core": "^7.14.0",
     "@babel/node": "^7.13.13",
     "@babel/preset-env": "^7.14.1",
     "babel-eslint": "^10.1.0",
+    "del-cli": "^3.0.1",
     "eslint": "^7.26.0",
     "eslint-config-prettier": "^8.3.0",
     "eslint-formatter-pretty": "^4.0.0",
+    "jest": "^26.6.3",
     "prettier": "^2.2.1"
+  },
+  "dependencies": {
+    "schema-utils": "^3.0.0"
   }
 }

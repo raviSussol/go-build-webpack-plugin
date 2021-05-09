@@ -4,29 +4,29 @@
 import { rmSync, readdirSync, statSync, existsSync } from 'fs';
 import { exec } from 'child_process';
 import { join, basename } from 'path';
+import { validate } from 'schema-utils';
+import schema from './schema.json';
 
 class GoBuildWebpackPlugin {
   constructor(options = {}) {
-    if (!Object.prototype.hasOwnProperty.call(options, 'build')) {
-      throw new Error('GoBuildWebpackPlugin must have an object argument having a "build" key.');
-    }
-    if (!Array.isArray(options.build)) {
-      throw new Error('Build key argument must be an array type.');
-    }
+    validate(schema, options, {
+      name: 'Go Build Plugin',
+      baseDataPath: 'options'
+    });
     this.inject = options.inject;
     this.build = options.build;
     this.files = [];
   }
 
-  getFilesRecursively(dir) {
+  static getFilesRecursively(dir) {
     readdirSync(dir).forEach(file => {
       const abs = join(dir, file);
-      if (statSync(abs).isDirectory()) return this.getFilesRecursively(abs);
+      if (statSync(abs).isDirectory()) return GoBuildWebpackPlugin.getFilesRecursively(abs);
       return this.files.push(abs);
     });
   }
 
-  toCamelCase(text) {
+  static toCamelCase(text) {
     return text.replace(/(?:^\w|[A-Z]|\b\w|\s+)/g, (word, index) => {
       return index === 0 ? word.toLowerCase() : word.toUpperCase();
     }).replace(/\s+/g, '');
@@ -46,10 +46,10 @@ class GoBuildWebpackPlugin {
             return cb(new Error('Build key arguments must contain "resourcePath", "outputPath" & "mode".'));
           }
           const goFileRegex = /(?:_test)\.go/g;
-          this.getFilesRecursively(b.resourcePath);
+          GoBuildWebpackPlugin.getFilesRecursively(b.resourcePath);
           this.files.filter(f => !f.match(goFileRegex)).forEach(srcFile => {
             const destFile = srcFile.replace(`${b.resourcePath}/`, '');
-            const fileNameInCamelCase = this.toCamelCase(`lib ${basename(destFile)}`);
+            const fileNameInCamelCase = GoBuildWebpackPlugin.toCamelCase(`lib ${basename(destFile)}`);
             const destLibFile = destFile.replace(basename(destFile), fileNameInCamelCase)
               .replace('.Go', process.platform === 'darwin' ? '.dylib' : '.dll');
             const destHeaderFile = destFile.replace(basename(destFile), fileNameInCamelCase)

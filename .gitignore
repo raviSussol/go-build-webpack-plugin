@@ -8,7 +8,7 @@ node_modules/
 *.DS_Store
 
 # production
-build/
+lib/
 
 # error log
 npm-error.log

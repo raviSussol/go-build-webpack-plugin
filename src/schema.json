@@ -1,0 +1,36 @@
+{
+  "definitions": {
+    "ObjectPattern": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "resourcePath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "outputPath": {
+          "type": "string",
+          "minLength": 1
+        },
+        "mode": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": ["resourcePath", "outputPath", "mode"]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "inject": {"type": "boolean"},
+    "build": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "anyOf": [{"$ref": "#/definitions/ObjectPattern"}]
+      }
+    }
+  },
+  "required": ["build"]
+}
