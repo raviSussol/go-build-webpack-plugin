@@ -46,22 +46,26 @@ class GoBuildWebpackPlugin {
             return cb(new Error('Build key arguments must contain "resourcePath", "outputPath" & "mode".'));
           }
           const goFileRegex = /(?:_test)\.go/g;
+          const pathSeparator = process.platform === 'win32' ? '\\' : '/';
+          const extension = process.platform === 'darwin' ? '.dylib'
+            : process.platform === 'linux' ? '.so'
+            : '.dll';
           GoBuildWebpackPlugin.getFilesRecursively(b.resourcePath);
           GoBuildWebpackPlugin.files.filter(f => !f.match(goFileRegex)).forEach(srcFile => {
-            const destFile = srcFile.replace(`${b.resourcePath}/`, '');
+            const destFile = srcFile.replace(`${b.resourcePath}${pathSeparator}`, '');
             const fileNameInCamelCase = GoBuildWebpackPlugin.toCamelCase(`lib ${basename(destFile)}`);
             const destLibFile = destFile.replace(basename(destFile), fileNameInCamelCase)
-              .replace('.Go', process.platform === 'darwin' ? '.dylib' : '.dll');
+              .replace('.Go', extension);
             const destHeaderFile = destFile.replace(basename(destFile), fileNameInCamelCase)
               .replace('.Go', '.h');
-            const cmd = `go build -o ${b.outputPath}/${destLibFile} -buildmode=${b.mode} ${srcFile}`;
+            const cmd = `go build -o ${b.outputPath}${pathSeparator}${destLibFile} -buildmode=${b.mode} ${srcFile}`;
             exec(cmd, (error, stdout, stderr) => {
               if (error) {
                 return cb(error, null);
               }
               // Filter header files in the 'dist' folder
-              if (existsSync(`${b.outputPath}/${destHeaderFile}`)) {
-                rmSync(`${b.outputPath}/${destHeaderFile}`, { recursive: true });
+              if (existsSync(`${b.outputPath}${pathSeparator}${destHeaderFile}`)) {
+                rmSync(`${b.outputPath}${pathSeparator}${destHeaderFile}`, { recursive: true });
               }
             });
           });
