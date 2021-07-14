@@ -7,7 +7,7 @@
   <a href="https://github.com/raviSussol/go-build-webpack-plugin/blob/main/LICENSE">
     <img src="https://badgen.net/badge/license/MIT/yellow" alt="license" />
   </a>
-  <a href="https://github.com/raviSussol/go-build-webpack-plugin/releases/tag/v1.1.0">
+  <a href="https://github.com/raviSussol/go-build-webpack-plugin/releases/tag/v1.2.0">
     <img src="https://badgen.net/github/release/raviSussol/go-build-webpack-plugin" alt="release" />
   </a>
 </div>
